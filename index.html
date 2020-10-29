@@ -24,30 +24,28 @@
 <div id="mapid" style="width: 600px; height: 400px;"></div>
 <script>
 
-	L.tileLayer('https://map1.vis.earthdata.nasa.gov/wmts-webmerc/VIIRS_CityLights_2012/default/{time}/{tilematrixset}{maxZoom}/{z}/{y}/{x}.{format}', {
-		bounds: [[-85.0511287776, -179.999999975], [85.0511287776, 179.999999975]],
-		minZoom: 1,
-		maxZoom: 8,
-		attribution: 'Imagery provided by services from the Global Imagery Browse Services (GIBS), operated by the NASA/GSFC/Earth Science Data and Information System (<a href="https://earthdata.nasa.gov">ESDIS</a>) with funding provided by NASA/HQ.',
-		format: 'jpg',
-		tileSize: 512,
-		zoomOffset: -1
-	}).addTo(mymap);
+	var lat = 41.39
+	var long = -81.68
+	var map = L.map('mapid').setView([lat, long], 10);
+	L.tileLayer('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
+		maxZoom: 20,
+		attribution: '<a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> | Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+	}).addTo(map);
 
-	L.marker([51.5, -0.09]).addTo(mymap)
+	L.marker([51.5, -0.09]).addTo(map)
 		.bindPopup("<b>Hello world!</b><br />I am a popup.")();
 
 	L.circle([51.508, -0.11], 500, {
 		color: 'red',
 		fillColor: '#f03',
 		fillOpacity: 0.5
-	}).addTo(mymap).bindPopup("I am a circle.");
+	}).addTo(map).bindPopup("I am a circle.");
 
 	L.polygon([
 		[51.509, -0.08],
 		[51.503, -0.06],
 		[51.51, -0.047]
-	]).addTo(mymap).bindPopup("I am a polygon.");
+	]).addTo(map).bindPopup("I am a polygon.");
 
 
 	var popup = L.popup();
@@ -56,10 +54,10 @@
 		popup
 			.setLatLng(e.latlng)
 			.setContent("You clicked the map at " + e.latlng.toString())
-			.openOn(mymap);
+			.openOn(map);
 	}
 
-	mymap.on('click', onMapClick);
+	map.on('click', onMapClick);
 
 </script>
 
