@@ -90,19 +90,7 @@
       ]
     }
 
-    var geojson = L.geoJSON(o, {
-      style: function (feature) {
-        return {}
-      },
-      pointToLayer: function (geoJsonPoint, latlng) {
-        return L.marker(latlng /*, { icon: greenIcon }*/)
-      },
-      onEachFeature: function (feature, layer) {
-        if (feature.geometry.type === "Point") {
-          layer.bindPopup('Point: ' + feature.geometry.coordinates.join(','));
-        }
-      }
-    });
+    var geojson = L.geoJSON(o);
 
     geojson.addTo(map);
 
