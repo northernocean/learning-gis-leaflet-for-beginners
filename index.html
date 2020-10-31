@@ -1,96 +1,128 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	
-	<title>Quick Start - Leaflet</title>
 
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	
-	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+  <title>Quick Start - Leaflet</title>
 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-        crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-        crossorigin=""></script>
-	
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+
 </head>
+
 <body>
 
 
 
-<div id="mapid" style="width: 600px; height: 400px;"></div>
-<script>
+  <div id="mapid" style="width: 600px; height: 400px;"></div>
+  <script>
 
-	var lat = 41.39
-	var long = -81.78
-	var map = L.map('mapid').setView([lat, long], 10);
-	L.tileLayer('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
-		maxZoom: 20,
-		attribution: '<a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> | Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-	}).addTo(map);
+    var lat = 41.39
+    var long = -81.78
+    var map = L.map('mapid').setView([lat, long], 10);
+    L.tileLayer('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
+      maxZoom: 20,
+      attribution: '<a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> | Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
 
-	var greenIcon = L.icon({
-		iconUrl: 'images/tree.png',
-		iconSize:     [32, 37], // size of the icon
-		iconAnchor:   [16, 37], // point of the icon which will correspond to marker's location
-		popupAnchor:  [0, -30] // point from which the popup should open relative to the iconAnchor
-	});
-	
-	//L.marker([41.4, -81.7], {icon: greenIcon}).addTo(map).bindPopup("I am a popup.")();
+    var greenIcon = L.icon({
+      iconUrl: 'images/tree.png',
+      iconSize: [32, 37], // size of the icon
+      iconAnchor: [16, 37], // point of the icon which will correspond to marker's location
+      popupAnchor: [0, -30] // point from which the popup should open relative to the iconAnchor
+    });
 
-	L.circle([41.471544, -81.633911], 500, {
-		color: 'red',
-		fillColor: '#f03',
-		fillOpacity: 0.5
-	}).addTo(map).bindPopup("I am a circle.");
+    //L.marker([41.4, -81.7], {icon: greenIcon}).addTo(map).bindPopup("I am a popup.")();
 
-	var popup = L.popup();
+    L.circle([41.471544, -81.633911], 500, {
+      color: 'red',
+      fillColor: '#f03',
+      fillOpacity: 0.5
+    }).addTo(map).bindPopup("I am a circle.");
 
-	var o = {
-		"type": "FeatureCollection",
-		"features": [{
-			"type": "Feature",
-			"properties": {},
-			"geometry": {
-				"type": "Point",
-				"coordinates": [
-				-81.670990,
-				41.488006
-				]}
-			}]
-		} 
-	
-	var geojson = L.geoJSON(o, {
-		style: function(feature){
-			return {}
-		},
-		pointToLayer: function(geoJsonPoint, latlng) {
-			return L.marker(latlng, {icon: greenIcon})
-		},
-		onEachFeature: function(feature, layer){
-			if(feature.geometry.type === "Point"){
-				layer.bindPopup('Point: ' + feature.geometry.coordinates.join(','));
-			}
-		}
-	});
+    var popup = L.popup();
 
-	geojson.addTo(map);
+    var o = {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "properties": {},
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              -81.52679443359375,
+              41.51011987595135
+            ]
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {},
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              -81.66412353515625,
+              41.42264912910954
+            ]
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {},
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              -81.86737060546875,
+              41.471029892051355
+            ]
+          }
+        }
+      ]
+    }
 
-	function onMapClick(e) {
-		popup
-			.setLatLng(e.latlng)
-			.setContent("You clicked the map at " + e.latlng.toString())
-			.openOn(map);
-	}
+    var geojson = L.geoJSON(o, {
+      style: function (feature) {
+        return {}
+      },
+      pointToLayer: function (geoJsonPoint, latlng) {
+        return L.marker(latlng /*, { icon: greenIcon }*/)
+      },
+      onEachFeature: function (feature, layer) {
+        if (feature.geometry.type === "Point") {
+          layer.bindPopup('Point: ' + feature.geometry.coordinates.join(','));
+        }
+      }
+    });
 
-	map.on('click', onMapClick);
+    geojson.addTo(map);
 
-</script>
+    map.fitBounds(geojson.getBounds(),
+      {padding: [20, 20]});
+
+    function onMapClick(e) {
+      popup
+        .setLatLng(e.latlng)
+        .setContent("You clicked the map at " + e.latlng.toString())
+        .openOn(map);
+    }
+
+    map.on('click', onMapClick);
+
+  </script>
+
 
 
 
 </body>
+
 </html>
