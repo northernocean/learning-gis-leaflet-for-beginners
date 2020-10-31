@@ -39,24 +39,45 @@
 		popupAnchor:  [0, -30] // point from which the popup should open relative to the iconAnchor
 	});
 	
-	L.marker([41.4, -81.7], {icon: greenIcon}).addTo(map)
-		.bindPopup("I am a popup.")();
+	//L.marker([41.4, -81.7], {icon: greenIcon}).addTo(map).bindPopup("I am a popup.")();
 
-
-	L.circle([51.508, -0.11], 500, {
+	L.circle([41.471544, -81.633911], 500, {
 		color: 'red',
 		fillColor: '#f03',
 		fillOpacity: 0.5
 	}).addTo(map).bindPopup("I am a circle.");
 
-	L.polygon([
-		[51.509, -0.08],
-		[51.503, -0.06],
-		[51.51, -0.047]
-	]).addTo(map).bindPopup("I am a polygon.");
-
-
 	var popup = L.popup();
+
+	var o = {
+		"type": "FeatureCollection",
+		"features": [{
+			"type": "Feature",
+			"properties": {},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+				-81.670990,
+				41.488006
+				]}
+			}]
+		} 
+	
+	var geojson = L.geoJSON(o, {
+		style: function(feature){
+			return {}
+		},
+		pointToLayer: function(geoJsonPoint, latlng) {
+			return L.marker(latlng, {icon: greenIcon})
+		},
+		onEachFeature: function(feature, layer){
+			if(feature.geometry.type === "Point"){
+				layer.bindPopup('Point: ' + feature.geometry.coordinates.join(','));
+			}
+		}
+	});
+
+	geojson.addTo(map);
 
 	function onMapClick(e) {
 		popup
