@@ -62,6 +62,8 @@
         icon: icons.green
       }).on("mousemove", function (e) {
         e.target.setIcon(icons.blue);
+      }).on("mouseout", function (e) {
+        e.target.setIcon(icons.green);
       });
       markers.push(marker);
     });
