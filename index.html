@@ -16,15 +16,16 @@
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
     integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
     crossorigin=""></script>
-  <script src = 'https://npmcdn.com/@turf/turf/turf.min.js'></script>
+  <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
 </head>
 
 <body>
 
-  
+
   <div id="mapid" style="width: 600px; height: 400px;"></div>
   <input type="text" id="current_center" />
-  
+  <button id="toggle_layer">Markers on/off</button>
+
   <script>
     var lat = 41.39
     var long = -81.78
@@ -93,11 +94,20 @@
 
     });
 
-    map.on("moveend", function(){
+    map.on("moveend", function () {
       document.getElementById("current_center").value = (
-        Math.round(map.getCenter().lat * 100) / 100 + ", " 
+        Math.round(map.getCenter().lat * 100) / 100 + ", "
         + Math.round(map.getCenter().lng * 100) / 100);
     });
+
+    // toggle visibility of markers
+    document.getElementById("toggle_layer")
+      .onclick = function (e) {
+        if (map.hasLayer(featureGroup))
+          map.removeLayer(featureGroup)
+        else
+          featureGroup.addTo(map);
+      };
 
     function onMapClick(e) {
       L.popup()
