@@ -16,14 +16,15 @@
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
     integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
     crossorigin=""></script>
-
+  <script src = 'https://npmcdn.com/@turf/turf/turf.min.js'></script>
 </head>
 
 <body>
 
+  
   <div id="mapid" style="width: 600px; height: 400px;"></div>
+  
   <script>
-
     var lat = 41.39
     var long = -81.78
     var map = L.map('mapid').setView([lat, long], 10);
@@ -66,15 +67,30 @@
         e.target.setIcon(icons.green);
       });
       markers.push(marker);
+      console.log(marker.getLatLng().lng)
     });
 
     // Add markers as a feature group
     var featureGroup = L.featureGroup(markers);
     featureGroup.addTo(map);
 
-      // set default bounds for map
-      map.fitBounds(featureGroup.getBounds(),
-        { padding: [20, 20] });
+    // set default bounds for map
+    map.fitBounds(featureGroup.getBounds(),
+      { padding: [20, 20] });
+
+    map.on("mousemove", function (e) {
+
+      var from = turf.point([e.latlng.lat, e.latlng.lng]);
+      var options = { units: 'miles' };
+      markers.forEach(function (marker) {
+        var to = turf.point([marker.getLatLng().lat, marker.getLatLng().lng]);
+        var distance = turf.distance(from, to, options);
+        if (distance < 5) {
+          marker.setIcon(icons.red)
+        }
+      })
+
+    });
 
     function onMapClick(e) {
       L.popup()
@@ -82,8 +98,9 @@
         .setContent("You clicked the map at " + e.latlng.toString())
         .openOn(map);
     }
-
     map.on('click', onMapClick);
+
+
   </script>
 
 
