@@ -70,6 +70,7 @@
 
     // Change marker color on mouseover
     featureGroup.on("mousemove", function (e) {
+      console.log(e);
       e.layer.setIcon(icons.blue);
     });
 
@@ -77,6 +78,14 @@
     map.fitBounds(featureGroup.getBounds(),
       { padding: [20, 20] });
 
+    function onMapClick(e) {
+      L.popup()
+        .setLatLng(e.latlng)
+        .setContent("You clicked the map at " + e.latlng.toString())
+        .openOn(map);
+    }
+
+    map.on('click', onMapClick);
   </script>
 
 
