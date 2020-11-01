@@ -23,6 +23,7 @@
 
   
   <div id="mapid" style="width: 600px; height: 400px;"></div>
+  <input type="text" id="current_center" />
   
   <script>
     var lat = 41.39
@@ -90,6 +91,12 @@
         }
       })
 
+    });
+
+    map.on("moveend", function(){
+      document.getElementById("current_center").value = (
+        Math.round(map.getCenter().lat * 100) / 100 + ", " 
+        + Math.round(map.getCenter().lng * 100) / 100);
     });
 
     function onMapClick(e) {
