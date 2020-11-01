@@ -60,6 +60,8 @@
     coords.forEach(function (coord) {
       var marker = L.marker(coord, {
         icon: icons.green
+      }).on("mousemove", function (e) {
+        e.target.setIcon(icons.blue);
       });
       markers.push(marker);
     });
@@ -68,15 +70,9 @@
     var featureGroup = L.featureGroup(markers);
     featureGroup.addTo(map);
 
-    // Change marker color on mouseover
-    featureGroup.on("mousemove", function (e) {
-      console.log(e);
-      e.layer.setIcon(icons.blue);
-    });
-
-    // set default bounds for map
-    map.fitBounds(featureGroup.getBounds(),
-      { padding: [20, 20] });
+      // set default bounds for map
+      map.fitBounds(featureGroup.getBounds(),
+        { padding: [20, 20] });
 
     function onMapClick(e) {
       L.popup()
