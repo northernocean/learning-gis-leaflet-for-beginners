@@ -21,8 +21,6 @@
 
 <body>
 
-
-
   <div id="mapid" style="width: 600px; height: 400px;"></div>
   <script>
 
@@ -34,74 +32,50 @@
       attribution: '<a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> | Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-    var greenIcon = L.icon({
-      iconUrl: 'images/tree.png',
-      iconSize: [32, 37], // size of the icon
-      iconAnchor: [16, 37], // point of the icon which will correspond to marker's location
-      popupAnchor: [0, -30] // point from which the popup should open relative to the iconAnchor
+    // Icons
+    var iconUrls = {
+      "blue": "images/marker-blue.svg",
+      "black": "images/marker-black.svg",
+      "red": "images/marker-red.svg",
+      "green": "images/marker-green.svg",
+      "gray": "images/marker-gray.svg"
+    };
+    var icons = {};
+    for (var key in iconUrls) {
+      icons[key] = L.icon({
+        iconUrl: iconUrls[key],
+        iconSize: [32, 32], // size of the icon
+        iconAnchor: [16, 32], // point of the icon which will correspond to marker's location
+        popupAnchor: [0, -30] // point from which the popup should open relative to the iconAnchor
+      })
+    };
+
+    // Markers
+    var markers = [];
+    var coords = [
+      [41.45, -81.90], // West
+      [41.50, -81.50], // East
+      [41.40, -81.70]  // South
+    ];
+    coords.forEach(function (coord) {
+      var marker = L.marker(coord, {
+        icon: icons.green
+      });
+      markers.push(marker);
     });
 
-    var marker1 = L.marker([41.4, -81.7]);
-    var marker2 = L.marker([41.46, -81.82]);
-
-    var o = {
-      "type": "FeatureCollection",
-      "features": [
-        {
-          "type": "Feature",
-          "properties": {},
-          "geometry": {
-            "type": "Point",
-            "coordinates": [
-              -81.52679443359375,
-              41.51011987595135
-            ]
-          }
-        },
-        {
-          "type": "Feature",
-          "properties": {},
-          "geometry": {
-            "type": "Point",
-            "coordinates": [
-              -81.66412353515625,
-              41.42264912910954
-            ]
-          }
-        },
-        {
-          "type": "Feature",
-          "properties": {},
-          "geometry": {
-            "type": "Point",
-            "coordinates": [
-              -81.86737060546875,
-              41.471029892051355
-            ]
-          }
-        }
-      ]
-    }
-
-    var geojson = L.geoJSON(o);
-
-    geojson.addTo(map);
-
-    var featureGroup = L.featureGroup([marker1, marker2]);
-
+    // Add markers as a feature group
+    var featureGroup = L.featureGroup(markers);
     featureGroup.addTo(map);
 
-    map.fitBounds(geojson.getBounds(),
-      {padding: [20, 20]});
+    // Change marker color on mouseover
+    featureGroup.on("mousemove", function (e) {
+      e.layer.setIcon(icons.blue);
+    });
 
-    function onMapClick(e) {
-      popup
-        .setLatLng(e.latlng)
-        .setContent("You clicked the map at " + e.latlng.toString())
-        .openOn(map);
-    }
-
-    map.on('click', onMapClick);
+    // set default bounds for map
+    map.fitBounds(featureGroup.getBounds(),
+      { padding: [20, 20] });
 
   </script>
 
