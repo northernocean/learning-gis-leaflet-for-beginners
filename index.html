@@ -18,14 +18,17 @@
     integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
     crossorigin=""></script>
   <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
+  <link rel="stylesheet" href="site.css">
 </head>
 
 <body>
 
 
+  <div id="overlay">
+    <input type="text" id="current_center" style="max-width: 80px" ; />
+    <button id="toggle_layer">Markers on/off</button>
+  </div>
   <div id="mapid" style="width: 100%;"></div>
-  <input type="text" id="current_center" style="max-width: 80px" ; />
-  <button id="toggle_layer">Markers on/off</button>
 
   <script>
 
