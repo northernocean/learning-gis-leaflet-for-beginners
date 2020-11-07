@@ -9,15 +9,22 @@
     box-shadow: 1px 1px 1px gray;
     min-height: 200px;
 }
+
+#overlay h2, #slide-in h2 {
+    margin: 0;
+    padding: 0;
+    margin-bottom: 10px;
+}
+
 #slide-in {
 	position: absolute;
 	width: 250px;
 	z-index: 1000;
     background: white;
     margin-top: 100px;
-    margin-left: -250px;
+    margin-left: -270px;
     transition: 1s;
 }
 #slide-in.in {
-    margin-left: 40px;
+    margin-left: 0px;
 }
