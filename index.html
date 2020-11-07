@@ -23,10 +23,13 @@
 
 <body>
 
+<div id="slide-in" style="text-align: center;"><h2>Information</h2></div>
 
   <div id="overlay">
+    <h2>My Map</h2>
     <input type="text" id="current_center" style="max-width: 80px" ; />
     <button id="toggle_layer">Markers on/off</button>
+    <button id="advanced">Advanced Toggle</button>
   </div>
   <div id="mapid" style="width: 100%;"></div>
 
@@ -36,7 +39,17 @@
 
       // Full screen
       $("#mapid").height(window.innerHeight);
-      
+
+      $(document).on("click", "#advanced", function(){
+        const el = $("#slide-in");
+        if($("#slide-in").hasClass("in")){
+          $("#slide-in").removeClass("in");
+        }
+        else{
+          $("#slide-in").addClass("in");
+        }
+      });
+
       var lat = 41.39
       var long = -81.78
       var map = L.map('mapid').setView([lat, long], 10);
