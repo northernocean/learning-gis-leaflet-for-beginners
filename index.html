@@ -35,6 +35,7 @@
   </div>
   <div id="mapid" style="width: 100%;"></div>
 
+
   <script>
 
     $(document).ready(function () {
@@ -133,6 +134,35 @@
           else
             featureGroup.addTo(map);
         };
+
+
+		var countriesGeoJSON = false;
+		var earthquakesGeoJSON = false;
+		var earthquakePointsArray = [];
+		var filters = {
+			text : '',
+			range : []
+		}
+
+		fetch('/countries.json',{
+			method: 'GET'
+		})
+		.then(response => response.json())
+		.then(json => {
+			countriesGeoJSON = L.geoJSON(json, {
+					style: function (feature) {
+							return {
+								fillOpacity: 0,
+								weight: 0.3
+							};
+					}
+			}).addTo(map);
+	    if(earthquakesGeoJSON) {
+				earthquakesGeoJSON.bringToFront();
+			}
+			map.fitBounds(countriesGeoJSON.getBounds());
+		})
+		.catch(error => console.log(error.message));
 
       function onMapClick(e) {
         L.popup()
